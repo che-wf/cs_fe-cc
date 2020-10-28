@@ -1,7 +1,11 @@
 import logo from './assets/logo.svg';
 import './App.css';
 
+import { useRestaurants } from './backend/hooks';
+
 export function App() {
+  const restaurants = useRestaurants();
+
   return (
     <div className="App">
       <header className="App-header">
