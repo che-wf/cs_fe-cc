@@ -1,4 +1,9 @@
 .Cell {
   border: 1px solid darkgrey;
   padding: 5px;
+
+  &.Header {
+    cursor: pointer;
+    font-weight: 700;
+  }
 }

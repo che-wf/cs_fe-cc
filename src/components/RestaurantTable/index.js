@@ -1,17 +1,23 @@
 import { useMemo } from 'react';
-import { useRestaurants } from '../../backend/hooks';
+
+import { useRestaurants, useDeriveRestaurants } from '../../backend/hooks';
 
 import { Table } from '../common/Table';
 
 import './RestaurantTable.css';
 
 export function RestaurantTable() {
-  const restaurants = useRestaurants() ?? [];
+  const { restaurants } = useRestaurants();
   const columns = useMakeColumns(restaurants);
+  // const refreshRestaurants = useDeriveRestaurants();
 
   return (
     <div className="RestaurantTable">
-      <Table columns={columns} data={restaurants} />
+      <Table
+        columns={columns}
+        data={restaurants}
+        // refresh={refreshRestaurants}
+      />
     </div>
   );
 }
@@ -65,7 +71,7 @@ function makeGenresColumn() {
     title: 'Genres',
     slug: 'genre',
     render: (genres) => {
-      return genres.split(',').join(', ');
+      return genres.split(',').sort().join(', ');
     },
   };
 }
