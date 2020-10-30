@@ -18,14 +18,13 @@ export function RestaurantTable() {
 
 function useMakeColumns() {
   return useMemo(
-    () =>
-      [
-        makeNameColumn(),
-        makeCityColumn(),
-        makeStateColumn(),
-        makePhoneNumberColumn(),
-        makeGenresColumn(),
-      ].filter(Boolean),
+    () => [
+      makeNameColumn(),
+      makeCityColumn(),
+      makeStateColumn(),
+      makePhoneNumberColumn(),
+      makeGenresColumn(),
+    ],
     []
   );
 }
@@ -55,6 +54,9 @@ function makePhoneNumberColumn() {
   return {
     title: 'Phone',
     slug: 'telephone',
+    render: (number) => {
+      return <a href={`tel:${cleanPhoneNumber(number)}`}>{number}</a>;
+    },
   };
 }
 
@@ -62,5 +64,17 @@ function makeGenresColumn() {
   return {
     title: 'Genres',
     slug: 'genre',
+    render: (genres) => {
+      return genres.split(',').join(', ');
+    },
   };
+}
+
+function cleanPhoneNumber(number) {
+  return number
+    .replace('(', '')
+    .replace(')', '')
+    .replace(' ', '')
+    .replace('-', '')
+    .replace(/^/, '+1');
 }

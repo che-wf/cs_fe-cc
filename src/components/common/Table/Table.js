@@ -29,11 +29,16 @@ function useMakeHeader(columns) {
 function useMakeTableContents(data, columns) {
   const tableContents = useMemo(
     () =>
-      data.map((datum) => {
+      data.map((datum, index) => {
         return (
           <tr key={`${datum.id}-row`}>
             {columns.map((column) => {
-              return <Cell>{datum[column.slug]}</Cell>;
+              const render = column.render ?? ((value) => value);
+              return (
+                <Cell key={`${datum.id}-${column.slug}-cell-${index}`}>
+                  {render(datum[column.slug])}
+                </Cell>
+              );
             })}
           </tr>
         );
