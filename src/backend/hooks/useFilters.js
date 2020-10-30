@@ -11,12 +11,12 @@ export function useIsFiltering() {
 }
 
 export function useGenreFilter() {
-  const restaurants = useRestaurants();
+  const { restaurants } = useRestaurants();
 
   return useMemo(() => transformList(restaurants, 'genre'), [restaurants]);
 }
 export function useStateFilter() {
-  const restaurants = useRestaurants();
+  const { restaurants } = useRestaurants();
 
   return useMemo(
     () =>
@@ -27,7 +27,7 @@ export function useStateFilter() {
   );
 }
 export function useAttireFilter() {
-  const restaurants = useRestaurants();
+  const { restaurants } = useRestaurants();
 
   return useMemo(() => transformList(restaurants, 'attire'), [restaurants]);
 }

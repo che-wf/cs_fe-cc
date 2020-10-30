@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useLayoutEffect, useEffect } from 'react';
 
 import { fetchRestaurants } from '../api';
 
@@ -6,7 +6,7 @@ import { useIsFiltering } from './useFilters';
 import { useSort, sortByKey } from './useSort';
 import { useSearch } from './useSearch';
 
-export function useBaseRestaurants() {
+export function useFetchRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
 
   useMemo(async () => {
@@ -18,13 +18,30 @@ export function useBaseRestaurants() {
 }
 
 export function useRestaurants() {
-  const restaurants = useBaseRestaurants();
+  const fetchedRestaurants = useFetchRestaurants([]);
+  const [restaurants, setRestaurants] = useState([]);
+
   const { sort } = useSort();
   const { isFiltering } = useIsFiltering();
   const { search } = useSearch();
 
-  // search
-  // filter, if filtering
-  // sort
-  return sortByKey(restaurants, sort);
+  useEffect(() => {
+    setRestaurants(deriveRestaurants(fetchedRestaurants, sort));
+  }, [fetchedRestaurants, sort]);
+
+  return { restaurants, setRestaurants };
 }
+
+function deriveRestaurants(restaurants = [], sort) {
+  sortByKey(restaurants, sort);
+}
+// export function useDeriveRestaurants() {
+//   const { restaurants, setRestaurants } = useRestaurants();
+
+//   // search
+//   // filter, if filtering
+//   // sort
+//   useLayoutEffect(() => {
+//     setRestaurants(sortByKey(restaurants, sort));
+//   }, [restaurants, setRestaurants, sort]);
+// }
