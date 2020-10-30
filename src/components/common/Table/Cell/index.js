@@ -1,3 +1,5 @@
+import './Cell.css';
+
 export function Cell({ children }) {
-  return <td>{children}</td>;
+  return <td className="Cell">{children}</td>;
 }

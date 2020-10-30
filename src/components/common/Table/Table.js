@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { Cell } from './Cell';
 
+import './Table.css';
+
 export function Table({ columns, data }) {
   const header = useMemo(
     () =>
@@ -12,7 +14,7 @@ export function Table({ columns, data }) {
 
   const tableContents = useMemo(
     () =>
-      data.map((datum, index) => {
+      data.map((datum) => {
         return (
           <tr key={`${datum.id}-row`}>
             {columns.map((column) => {
@@ -29,7 +31,7 @@ export function Table({ columns, data }) {
   }
 
   return (
-    <table>
+    <table className="Table">
       <thead>
         <tr>{header}</tr>
       </thead>
