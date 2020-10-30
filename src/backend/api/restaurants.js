@@ -1,6 +1,6 @@
 import { getHeaders } from './constants';
 
-export function fetchRestaurants() {
+export function getRestaurants() {
   const headers = getHeaders();
   const endpoint = 'https://code-challenge.spectrumtoolbox.com/api/restaurants';
   const requestOptions = {

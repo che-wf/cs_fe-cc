@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useRestaurants, useDeriveRestaurants } from '../../backend/hooks';
+import { useRefreshRestaurants, useRestaurants } from '../../backend/hooks';
 
 import { Table } from '../common/Table';
 
@@ -9,14 +9,13 @@ import './RestaurantTable.css';
 export function RestaurantTable() {
   const { restaurants } = useRestaurants();
   const columns = useMakeColumns(restaurants);
-  // const refreshRestaurants = useDeriveRestaurants();
 
   return (
     <div className="RestaurantTable">
       <Table
         columns={columns}
         data={restaurants}
-        // refresh={refreshRestaurants}
+        refresh={useRefreshRestaurants}
       />
     </div>
   );

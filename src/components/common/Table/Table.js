@@ -76,7 +76,7 @@ function HeaderCell({ column, index, refresh }) {
           key: column.slug,
           order: sort.key === column.slug ? !sort.order : SORT_ASC,
         });
-        // refresh();
+        refresh();
       }}
     >
       {column.title}
